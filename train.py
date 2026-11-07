@@ -32,3 +32,11 @@ X_train, X_test, y_train, y_test = train_test_split(
 # Save test set for Streamlit testing
 test_df = pd.concat([X_test, y_test], axis=1)
 test_df.to_csv("test_data.csv", index=False)
+
+# 3. Preprocessing (Standard Scaling)
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+os.makedirs("model", exist_ok=True)
+joblib.dump(scaler, "model/scaler.joblib")
