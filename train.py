@@ -40,3 +40,51 @@ X_test_scaled = scaler.transform(X_test)
 
 os.makedirs("model", exist_ok=True)
 joblib.dump(scaler, "model/scaler.joblib")
+
+# 4. Define Models
+models = {
+    "Logistic Regression": LogisticRegression(max_iter=1000, random_state=42),
+    "Decision Tree": DecisionTreeClassifier(max_depth=5, random_state=42),
+    "KNN": KNeighborsClassifier(n_neighbors=7),
+    "Naive Bayes": GaussianNB(),
+    "Support Vector Machine": SVC(probability=True, random_state=42)
+}
+
+# 5. Train, Evaluate & Save Models
+results = []
+
+for name, model in models.items():
+    # Use scaled data for distance/gradient based algorithms
+    if name in ["Logistic Regression", "KNN", "Support Vector Machine", "Naive Bayes"]:
+        model.fit(X_train_scaled, y_train)
+        y_pred = model.predict(X_test_scaled)
+        y_proba = model.predict_proba(X_test_scaled)[:, 1]
+    else:
+        model.fit(X_train, y_train)
+        y_pred = model.predict(X_test)
+        y_proba = model.predict_proba(X_test)[:, 1]
+
+    # Metrics calculation
+    acc = accuracy_score(y_test, y_pred)
+    auc = roc_auc_score(y_test, y_proba)
+    prec = precision_score(y_test, y_pred, zero_division=0)
+    rec = recall_score(y_test, y_pred, zero_division=0)
+    f1 = f1_score(y_test, y_pred, zero_division=0)
+    mcc = matthews_corrcoef(y_test, y_pred)
+
+    results.append({
+        "ML Model Name": name,
+        "Accuracy": round(acc, 4),
+        "AUC": round(auc, 4),
+        "Precision": round(prec, 4),
+        "Recall": round(rec, 4),
+        "F1": round(f1, 4),
+        "MCC": round(mcc, 4)
+    })
+
+    # Save model
+    filename = f"model/{name.lower().replace(' ', '_')}.joblib"
+    joblib.dump(model, filename)
+
+print("Evaluation Summary:")
+print(pd.DataFrame(results).to_string(index=False))
