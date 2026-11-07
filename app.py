@@ -34,8 +34,22 @@ target_col = st.sidebar.text_input("Target Column Name", value="HeartDiseaseorAt
 
 if uploaded_file is not None:
     test_df = pd.read_csv(uploaded_file)
-    st.subheader("📌 Uploaded Test Data Preview")
-    st.dataframe(test_df.head())
+    with st.expander("📌 View Uploaded Test Data Preview", expanded=False):
+        st.dataframe(test_df.head(), use_container_width=True)
+
+    if target_col not in test_df.columns:
+        st.error(f"⚠️ Target column '{target_col}' not found in uploaded dataset.")
+    else:
+        X_test = test_df.drop(columns=[target_col])
+        y_test = test_df[target_col]
+
+        # Load Model and Scaler
+        try:
+            model = joblib.load(MODEL_MAP[selected_model_name])
+
+        except Exception as e:
+            st.error(f"Error executing inference: {e}")
+
 
 else:
     st.info("👈 Please upload your `test_data.csv` file from the sidebar to begin.")
