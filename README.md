@@ -46,3 +46,51 @@ Cardiovascular diseases are among the leading causes of death worldwide. Early i
 
 ### Overall, Winner for your dataset?
 **Logistic Regression** is the clear winner for this dataset, achieving the top score in **Accuracy (0.9090)**, **AUC (0.8586)**, and **Precision (0.6552)**, making it the most balanced and reliable overall classifier. *(Note: Naive Bayes is the best candidate if clinical priority is maximizing sensitivity/recall).*
+
+## Project Repository Structure
+```text
+multi-model-ml-dashboard/
+│
+├── model/
+│   ├── logistic_regression.joblib
+│   ├── decision_tree.joblib
+│   ├── knn.joblib
+│   ├── naive_bayes.joblib
+│   ├── support_vector_machine.joblib
+│   └── scaler.joblib
+│
+├── app.py
+├── train.py
+├── test_data.csv
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## Required Dependencies (`requirements.txt`)
+The project relies on the following Python packages:
+* `streamlit`
+* `scikit-learn`
+* `numpy`
+* `pandas`
+* `matplotlib`
+* `seaborn`
+* `joblib`
+
+---
+
+## How to Run Locally
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/shivamkrishnasrivastava/multi-model-ml-dashboard.git
+   cd multi-model-ml-dashboard
+   ```
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Launch the Streamlit application:
+   ```bash
+   streamlit run app.py
+   ```
