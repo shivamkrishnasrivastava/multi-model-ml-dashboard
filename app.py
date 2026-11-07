@@ -120,7 +120,7 @@ st.markdown("""
 st.markdown("""
 <div class="hero-banner">
     <div class="status-badge">⚡ SYSTEM ONLINE</div>
-    <h1>Multi-Model Classification Dashboard</h1>
+    <h1>Heart Disease ML Evaluation</h1>
     <p>Evaluate and benchmark machine learning algorithms with production-grade performance metrics and visual telemetry.</p>
 </div>
 """, unsafe_allow_html=True)
