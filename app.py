@@ -13,7 +13,7 @@ from sklearn.metrics import (
 
 # Page Configuration
 st.set_page_config(
-    page_title="Multi-Model ML Dashboard",
+    page_title="Heart Disease Prediction & Multi-Model Classifier Evaluation",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
